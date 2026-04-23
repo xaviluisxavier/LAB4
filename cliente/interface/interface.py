@@ -19,6 +19,8 @@ class Interface:
         self.send_str(self.connection, cliente.UDP_PORT)
         self.send_int(self.connection, self.udp_port, cliente.INT_SIZE)
         print(f"Cliente ligado por TCP; à escuta de broadcasts UDP na porta {self.udp_port}")
+        broadcast = BroadcastReceiver(self.udp_socket)
+        broadcast.start()
 
     def receive_str(self, connect, n_bytes: int) -> str:
         data = connect.recv(n_bytes)
@@ -36,8 +38,7 @@ class Interface:
 
     def execute(self):
         # Iniciar recepção de udp no lado do cliente
-        broadcast = BroadcastReceiver(self.udp_socket)
-        broadcast.start()
+        
 
         print("Preciso que introduza dois valores:")
         x: int = int(input("x="))
